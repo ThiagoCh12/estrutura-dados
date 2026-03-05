@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-
+#include <string.h>
 /* run this program using the console pauser or add your own getch, system("pause") or input loop */
 
 int main() {
@@ -33,6 +33,12 @@ int main() {
 	printf("End. Mem ptr4 = %p\n", &ptr4);
 	printf("End. Mem ptrN = %p\n", &ptrN);
 	printf("-----------------------------------------\n");
+	printf("valor ptr1 = %p\n", ptr1);
+	printf("valor ptr2 = %p\n", ptr2);
+	printf("valor ptr3 = %p\n", ptr3);
+	printf("valor ptr4 = %p\n", ptr4);
+	printf("valor ptrN = %p\n", ptrN);
+	printf("-----------------------------------------\n");
 	printf("Vlr. onde ptr1 aponta = %d\n", *ptr1);
 	printf("Vlr. onde ptr2 aponta = %d\n", *ptr2);
 	printf("Vlr. onde ptr3 aponta = %d\n", *ptr3);
@@ -44,5 +50,12 @@ int main() {
 	printf("End. Mem onde ptr3 aponta = %p\n", &*ptr3);
 	printf("End. Mem onde ptr4 aponta = %p\n", &*ptr4);
 	printf("End. Mem onde ptrN aponta = %p\n", &*ptrN);
+	char nome[40];
+	printf("Insira seu nome: ");
+	gets(nome);
+	int i;
+	for(i=0;i<strlen(nome);i++){
+		printf("ENDERECO DO CARACTER %c: %p\n",nome[i], &nome[i]);
+	}
 	
 }
