@@ -1,0 +1,135 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+
+void push(int item);
+void pop();
+void imprimir();
+void push_rand();
+int entrada_dados();
+
+typedef struct apelido_no{
+	int dado;
+	struct apelido_no *proximo;
+}no;
+
+no *top=NULL;
+
+int main(){
+	srand(time(NULL));
+	int n, opcao;
+	do{
+		system("cls");
+		printf("\n\nMenu\n1. Empilhar \n2. Desempilhar\n3. Empilhar 5 rand\n4. Imprimir \n5. percorrer_pilha\n6. sair");
+		printf("\nEscolha uma opcao (0-4): ");
+		scanf("%d", &opcao);
+		switch(opcao){
+			case 1:
+				n=entrada_dados();
+				push(n); //empilhar
+				break;
+			case 2:
+				pop();
+				break;
+			case 3:
+				push_rand();
+				break;
+			case 4:
+				imprimir();
+				break;
+			case 5:
+				percorrer_pilha(*top);
+				break;
+			case 6:
+				break;
+		}
+	}while (opcao!=6);
+	system("pause");
+	return 0;
+	
+}
+
+void push(int item){
+	printf("\nEmpilhando...");
+	no *novo=malloc(sizeof(no));
+	if (novo == NULL){
+		printf("Erro ao alocar memoria");
+	}
+	else{
+		novo->dado=item;
+		novo->proximo=top;
+		top=novo;
+		printf("\nValor %d empilhado\n", novo->dado);
+		system("pause");
+	}	
+}
+
+void pop(){
+	printf("\nDesempilhando...\n");
+	if(top == NULL)
+		printf("A pilha esta vazia\n");
+	else{
+		no *temp;
+		temp=top;
+		top=top->proximo;
+		printf("\n%d Desempilhado com sucesso\n", temp->dado);
+		free(temp);
+	}
+	system("pause");
+}
+
+void imprimir(){
+	no *temp;
+	temp=top;
+	printf("\nImprimindo pilha..\n");
+	while(temp!=NULL){
+		printf("%d\n", temp->dado);
+		temp=temp->proximo;
+	}
+	system("pause");
+}
+
+void push_rand(){
+	int valor, cont = 0;
+	do{
+		valor = rand()%(100 - 10 + 1)+10;
+		push(valor);
+		cont += 1;
+	}while(cont<5);
+}
+
+void percorrer_pilha(no *top){
+	if(top->proximo == -1){
+		printf("Pilha vazia!");
+		return;
+	}
+	int i, min=top->proximo, max=0;
+	no *atual = top;
+	if (atual != NULL){
+		min = atual->dado;
+		max = atual->dado;
+	}
+	
+	printf("\nPercorrendo pilha..");
+	
+	while(atual != NULL){
+		if(min > atual->dado)
+			min = atual->dado;
+		if (max < atual->dado)
+			max = atual->dado;
+			
+		atual = atual->proximo;
+	}
+	
+	printf("MAX: %d\nMIN: %d\n", max, min);
+	system("pause");
+}
+
+int entrada_dados(){
+	int valor;
+	printf("\nEntre com valor a empilhar:");
+	scanf("%d", &valor);
+	return valor;
+}
+
+
